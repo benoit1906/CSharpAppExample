@@ -4,6 +4,9 @@
 
 namespace WeatherForecastApp.Site
 {
+    using WeatherForecastApp.Business.Domains;
+    using WeatherForecastApp.Business.Interfaces;
+
     /// <summary>
     /// The startup class.
     /// </summary>
@@ -35,6 +38,8 @@ namespace WeatherForecastApp.Site
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
+
+            services.AddScoped<IWeatherForecastDomain, WeatherForecastDomain>();
         }
 
         /// <summary>
