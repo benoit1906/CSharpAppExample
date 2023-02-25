@@ -38,6 +38,10 @@ namespace WeatherForecastApp.Site
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
+            services.AddAutoMapper(cfg =>
+            {
+                cfg.CreateMap<Core.Models.WeatherForecast, ViewModels.WeatherForecast>();
+            });
 
             services.AddScoped<IWeatherForecastDomain, WeatherForecastDomain>();
         }

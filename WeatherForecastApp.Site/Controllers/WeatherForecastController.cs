@@ -4,9 +4,10 @@
 
 namespace WeatherForecastApp.Site.Controllers
 {
+    using AutoMapper;
     using Microsoft.AspNetCore.Mvc;
     using WeatherForecastApp.Business.Interfaces;
-    using WeatherForecastApp.Business.Models;
+    using WeatherForecastApp.Site.ViewModels;
 
     /// <summary>
     /// Contains the definition of an object of type <see cref="WeatherForecastController"/>.
@@ -15,19 +16,19 @@ namespace WeatherForecastApp.Site.Controllers
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {
+        private readonly IMapper mapper;
+        private readonly IWeatherForecastDomain weatherForecastDomain;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="WeatherForecastController"/> class.
         /// </summary>
+        /// <param name="mapper">The mapper.</param>
         /// <param name="weatherForecastDomain">The weather forecast domain.</param>
-        public WeatherForecastController(IWeatherForecastDomain weatherForecastDomain)
+        public WeatherForecastController(IMapper mapper, IWeatherForecastDomain weatherForecastDomain)
         {
-            this.WeatherForecastDomain = weatherForecastDomain;
+            this.mapper = mapper;
+            this.weatherForecastDomain = weatherForecastDomain;
         }
-
-        /// <summary>
-        /// Gets the weather forecast domain.
-        /// </summary>
-        public IWeatherForecastDomain WeatherForecastDomain { get; }
 
         /// <summary>
         /// Gets all the weather forecasts.
@@ -35,6 +36,6 @@ namespace WeatherForecastApp.Site.Controllers
         /// <returns>A list of weather forecasts.</returns>
         [HttpGet(Name = "GetWeatherForecast")]
         public IEnumerable<WeatherForecast> GetAllWeatherForecast()
-            => this.WeatherForecastDomain.GetAllWeatherForecast();
+            => this.mapper.Map<IEnumerable<WeatherForecast>>(this.weatherForecastDomain.GetAllWeatherForecast());
     }
 }

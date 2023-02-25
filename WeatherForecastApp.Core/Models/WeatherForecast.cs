@@ -2,7 +2,7 @@
 // Copyright (c) MyTopCompany. All rights reserved.
 // </copyright>
 
-namespace WeatherForecastApp.Business.Models
+namespace WeatherForecastApp.Core.Models
 {
     /// <summary>
     /// Contains the definition of an object of type <see cref="WeatherForecast"/>.

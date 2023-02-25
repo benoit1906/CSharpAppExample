@@ -4,7 +4,7 @@
 
 namespace WeatherForecastApp.Business.Interfaces
 {
-    using WeatherForecastApp.Business.Models;
+    using WeatherForecastApp.Core.Models;
 
     /// <summary>
     /// Contains the definition of an object of type <see cref="IWeatherForecastDomain"/>.
