@@ -2,12 +2,12 @@
 // Copyright (c) MyTopCompany. All rights reserved.
 // </copyright>
 
-namespace WeatherForecastApp.Controllers
+namespace WeatherForecastApp.Site.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
 
     /// <summary>
-    /// Contains the definition of an object of tye WeatherForecastController.
+    /// Contains the definition of an object of type WeatherForecastController.
     /// </summary>
     [ApiController]
     [Route("[controller]")]
