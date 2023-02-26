@@ -43,6 +43,7 @@ namespace WeatherForecastApp.Site
             services.AddAutoMapper(cfg =>
             {
                 cfg.CreateMap<Core.Models.WeatherForecast, ViewModels.WeatherForecast>();
+                cfg.CreateMap<ViewModels.WeatherForecastSearchParams, Core.Models.WeatherForecastSearchParams>();
             });
 
             services.AddScoped<IWeatherForecastDomain, WeatherForecastDomain>();

@@ -5,7 +5,7 @@
 namespace WeatherForecastApp.Site.ViewModels
 {
     using System.Runtime.Serialization;
-    using WeatherForecastApp.Core.Models;
+    using WeatherForecastApp.Core.Enums;
 
     /// <summary>
     /// Contains the definition of an object of type <see cref="WeatherForecast"/>.
@@ -26,7 +26,7 @@ namespace WeatherForecastApp.Site.ViewModels
         public int TemperatureC { get; set; }
 
         /// <summary>
-        /// Gets the temperature in Farhenheit.
+        /// Gets the temperature in Fahrenheit.
         /// </summary>
         [DataMember(Name = "temperatureF")]
         public int TemperatureF => 32 + (int)(this.TemperatureC / 0.5556);

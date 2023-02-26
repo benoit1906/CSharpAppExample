@@ -2,7 +2,7 @@
 // Copyright (c) MyTopCompany. All rights reserved.
 // </copyright>
 
-namespace WeatherForecastApp.Core.Models
+namespace WeatherForecastApp.Core.Enums
 {
     /// <summary>
     /// Contains the definition of an object of type <see cref="ForecastDescription"/>.

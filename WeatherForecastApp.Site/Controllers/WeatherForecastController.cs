@@ -34,8 +34,19 @@ namespace WeatherForecastApp.Site.Controllers
         /// Gets all the weather forecasts.
         /// </summary>
         /// <returns>A list of weather forecasts.</returns>
-        [HttpGet(Name = "GetWeatherForecast")]
+        [HttpGet("GetWeatherForecast")]
         public IEnumerable<WeatherForecast> GetAllWeatherForecast()
             => this.mapper.Map<IEnumerable<WeatherForecast>>(this.weatherForecastDomain.GetAllWeatherForecast());
+
+        /// <summary>
+        /// Gets the weather forecasts by search params.
+        /// </summary>
+        /// <param name="searchParams">The search params.</param>
+        /// <returns>A list of weather forecasts.</returns>
+        [HttpPost("GetWeatherForecastBySearchParams")]
+        public IEnumerable<WeatherForecast> GetWeatherForecastBySearchParams(WeatherForecastSearchParams searchParams)
+            => this.mapper.Map<IEnumerable<WeatherForecast>>(
+                this.weatherForecastDomain.GetWeatherForecastsBySearchParams(
+                    this.mapper.Map<Core.Models.WeatherForecastSearchParams>(searchParams)));
     }
 }

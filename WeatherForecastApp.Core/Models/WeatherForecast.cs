@@ -4,6 +4,8 @@
 
 namespace WeatherForecastApp.Core.Models
 {
+    using WeatherForecastApp.Core.Enums;
+
     /// <summary>
     /// Contains the definition of an object of type <see cref="WeatherForecast"/>.
     /// </summary>
@@ -20,7 +22,7 @@ namespace WeatherForecastApp.Core.Models
         public int TemperatureC { get; set; }
 
         /// <summary>
-        /// Gets the temperature in Farhenheit.
+        /// Gets the temperature in Fahrenheit.
         /// </summary>
         public int TemperatureF => 32 + (int)(this.TemperatureC / 0.5556);
 

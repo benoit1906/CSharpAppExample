@@ -19,6 +19,29 @@ namespace WeatherForecastApp.Data.Repositories
         public IEnumerable<WeatherForecast> GetAllWeatherForecasts()
             => this.FetchDataBase();
 
+        /// <inheritdoc/>
+        public IEnumerable<WeatherForecast> GetWeatherForecastsBySearchParams(WeatherForecastSearchParams searchParams)
+        {
+            var query = this.FetchDataBase();
+
+            if (searchParams.Date != null)
+            {
+                query = query.Where(wf => wf.Date > searchParams.Date);
+            }
+
+            if (searchParams.MinimumTemperatureC != null)
+            {
+                query = query.Where(wf => wf.TemperatureC > searchParams.MinimumTemperatureC);
+            }
+
+            if (searchParams.Description != null)
+            {
+                query = query.Where(wf => wf.Description == searchParams.Description);
+            }
+
+            return query.OrderByDescending(wf => wf.Date);
+        }
+
         private IEnumerable<WeatherForecast> FetchDataBase()
         {
             var rawData = File.ReadAllText(DatabasePath);
