@@ -26,12 +26,12 @@ namespace WeatherForecastApp.Data.Repositories
 
             if (searchParams.Date != null)
             {
-                query = query.Where(wf => wf.Date > searchParams.Date);
+                query = query.Where(wf => wf.Date.Date == ((DateTime)searchParams.Date).Date);
             }
 
             if (searchParams.MinimumTemperatureC != null)
             {
-                query = query.Where(wf => wf.TemperatureC > searchParams.MinimumTemperatureC);
+                query = query.Where(wf => wf.TemperatureC >= searchParams.MinimumTemperatureC);
             }
 
             if (searchParams.Description != null)

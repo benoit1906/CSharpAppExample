@@ -24,7 +24,7 @@ namespace WeatherForecastApp.Site.ViewModels
         /// Gets or sets the temperature in Celcius.
         /// </summary>
         [DataMember(Name = "minimumTemperatureC")]
-        public int? TemperatureC { get; set; }
+        public int? MinimumTemperatureC { get; set; }
 
         /// <summary>
         /// Gets or sets the description of the weather forecast.
