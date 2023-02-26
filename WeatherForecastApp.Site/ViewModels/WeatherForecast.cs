@@ -5,6 +5,7 @@
 namespace WeatherForecastApp.Site.ViewModels
 {
     using System.Runtime.Serialization;
+    using WeatherForecastApp.Core.Models;
 
     /// <summary>
     /// Contains the definition of an object of type <see cref="WeatherForecast"/>.
@@ -34,6 +35,6 @@ namespace WeatherForecastApp.Site.ViewModels
         /// Gets or sets the description.
         /// </summary>
         [DataMember(Name = "description")]
-        public string? Description { get; set; }
+        public ForecastDescription Description { get; set; }
     }
 }

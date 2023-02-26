@@ -27,6 +27,6 @@ namespace WeatherForecastApp.Core.Models
         /// <summary>
         /// Gets or sets the description.
         /// </summary>
-        public string? Description { get; set; }
+        public ForecastDescription Description { get; set; }
     }
 }

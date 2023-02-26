@@ -6,6 +6,8 @@ namespace WeatherForecastApp.Site
 {
     using WeatherForecastApp.Business.Domains;
     using WeatherForecastApp.Business.Interfaces;
+    using WeatherForecastApp.Data.Interfaces;
+    using WeatherForecastApp.Data.Repositories;
 
     /// <summary>
     /// The startup class.
@@ -44,6 +46,7 @@ namespace WeatherForecastApp.Site
             });
 
             services.AddScoped<IWeatherForecastDomain, WeatherForecastDomain>();
+            services.AddScoped<IWeatherForecastRepository, WeatherForecastRepository>();
         }
 
         /// <summary>

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -20,7 +21,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\WeatherForecastApp.Core\WeatherForecastApp.Core.csproj" />
-    <ProjectReference Include="..\WeatherForecastApp.Data\WeatherForecastApp.Data.csproj" />
   </ItemGroup>
 
 </Project>
