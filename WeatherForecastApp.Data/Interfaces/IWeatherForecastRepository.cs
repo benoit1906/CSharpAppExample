@@ -16,5 +16,12 @@ namespace WeatherForecastApp.Data.Interfaces
         /// </summary>
         /// <returns>A list of all weather forecasts.</returns>
         IEnumerable<WeatherForecast> GetAllWeatherForecasts();
+
+        /// <summary>
+        /// Gets the weather forecasts by search params.
+        /// </summary>
+        /// <param name="searchParams">The search parameters.</param>
+        /// <returns>A list of weather forecasts.</returns>
+        IEnumerable<WeatherForecast> GetWeatherForecastsBySearchParams(WeatherForecastSearchParams searchParams);
     }
 }

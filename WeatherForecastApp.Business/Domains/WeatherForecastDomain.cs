@@ -27,5 +27,9 @@ namespace WeatherForecastApp.Business.Domains
         /// <inheritdoc/>
         public IEnumerable<WeatherForecast> GetAllWeatherForecast()
             => this.weatherForecastRepository.GetAllWeatherForecasts();
+
+        /// <inheritdoc/>
+        public IEnumerable<WeatherForecast> GetWeatherForecastsBySearchParams(WeatherForecastSearchParams searchParams)
+            => this.weatherForecastRepository.GetWeatherForecastsBySearchParams(searchParams);
     }
 }
