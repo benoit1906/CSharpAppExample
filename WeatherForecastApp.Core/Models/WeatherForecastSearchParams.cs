@@ -5,6 +5,8 @@
 namespace WeatherForecastApp.Core.Models
 {
     using System;
+    using System.Runtime.Serialization;
+    using System.Xml.Linq;
     using WeatherForecastApp.Core.Enums;
 
     /// <summary>
@@ -26,5 +28,10 @@ namespace WeatherForecastApp.Core.Models
         /// Gets or sets the summary of the weather forecast.
         /// </summary>
         public ForecastDescription? Description { get; set; }
+
+        /// <summary>
+        /// Gets or sets the city identifier.
+        /// </summary>
+        public int? CityId { get; set; }
     }
 }

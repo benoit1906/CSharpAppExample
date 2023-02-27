@@ -2,31 +2,37 @@
   {
     "Date": "2023-01-31T00:00:00",
     "TemperatureC": -19,
-    "Description": 2
+    "Description": 2,
+    "CityId":  2
   },
   {
     "Date": "2023-02-01T00:00:00",
     "TemperatureC": 23,
-    "Description": 4
+    "Description": 4,
+    "CityId": 4
   },
   {
     "Date": "2023-02-02T00:00:00",
     "TemperatureC": 45,
-    "Description": 6
+    "Description": 6,
+    "CityId": 1
   },
   {
     "Date": "2023-02-03T00:00:00",
     "TemperatureC": 51,
-    "Description": 7
+    "Description": 7,
+    "CityId": 3
   },
   {
     "Date": "2023-02-04T00:00:00",
     "TemperatureC": 23,
-    "Description": 9
+    "Description": 9,
+    "CityId": 4
   },
   {
     "Date": "2023-02-07T00:00:00",
     "TemperatureC": 2,
-    "Description": 3
+    "Description": 3,
+    "CityId": 2
   }
 ]

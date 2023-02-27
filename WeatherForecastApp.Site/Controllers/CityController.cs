@@ -13,7 +13,7 @@ namespace WeatherForecastApp.Site.Controllers
     /// Contains the definition of an object of type <see cref="CityController"/>.
     /// </summary>
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     public class CityController : ControllerBase
     {
         private readonly IMapper mapper;

@@ -30,5 +30,10 @@ namespace WeatherForecastApp.Core.Models
         /// Gets or sets the description.
         /// </summary>
         public ForecastDescription Description { get; set; }
+
+        /// <summary>
+        /// Gets or sets the city identifier.
+        /// </summary>
+        public int CityId { get; set; }
     }
 }
