@@ -15,6 +15,7 @@ namespace WeatherForecastApp.Data.Tests.Repositories
         /// Tests whether the database has an error in the latitude or longitude.
         /// This tests works only if the database has a mistake in itself.
         /// </summary>
+        [Fact]
         public void LongitudeAndLatitudeShouldBevalid()
         {
             // Arrange
