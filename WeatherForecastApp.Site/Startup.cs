@@ -44,10 +44,16 @@ namespace WeatherForecastApp.Site
             {
                 cfg.CreateMap<Core.Models.WeatherForecast, ViewModels.WeatherForecast>();
                 cfg.CreateMap<ViewModels.WeatherForecastSearchParams, Core.Models.WeatherForecastSearchParams>();
+                cfg.CreateMap<Core.Models.City, ViewModels.City>();
             });
 
+            // Domains
             services.AddScoped<IWeatherForecastDomain, WeatherForecastDomain>();
+            services.AddScoped<ICityDomain, CityDomain>();
+
+            // Repositories
             services.AddScoped<IWeatherForecastRepository, WeatherForecastRepository>();
+            services.AddScoped<ICityRepository, CityRepository>();
         }
 
         /// <summary>

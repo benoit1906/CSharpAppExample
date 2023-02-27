@@ -39,6 +39,11 @@ namespace WeatherForecastApp.Data.Repositories
                 query = query.Where(wf => wf.Description == searchParams.Description);
             }
 
+            if (searchParams.CityId != null)
+            {
+                query = query.Where(wf => wf.CityId == searchParams.CityId);
+            }
+
             return query.OrderByDescending(wf => wf.Date);
         }
 

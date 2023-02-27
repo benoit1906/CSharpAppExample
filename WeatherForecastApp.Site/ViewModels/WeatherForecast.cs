@@ -36,5 +36,11 @@ namespace WeatherForecastApp.Site.ViewModels
         /// </summary>
         [DataMember(Name = "description")]
         public ForecastDescription Description { get; set; }
+
+        /// <summary>
+        /// Gets or sets the city identifier.
+        /// </summary>
+        [DataMember(Name = "cityId")]
+        public int CityId { get; set; }
     }
 }

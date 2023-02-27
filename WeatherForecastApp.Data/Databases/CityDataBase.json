@@ -1,0 +1,26 @@
+[
+  {
+    "Id": 1,
+    "Name": "Amsterdam",
+    "Latitude": 82,
+    "Longitude": 6
+  },
+  {
+    "Id": 2,
+    "Name": "Bruxelles",
+    "Latitude": 42,
+    "Longitude": -5
+  },
+  {
+    "Id": 3,
+    "Name": "London",
+    "Latitude": 76,
+    "Longitude": -42
+  },
+  {
+    "Id": 4,
+    "Name": "Zurich",
+    "Latitude": 52,
+    "Longitude": 44
+  }
+]
