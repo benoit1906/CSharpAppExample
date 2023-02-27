@@ -4,7 +4,6 @@
 
 namespace WeatherForecastApp.Data.Repositories
 {
-    using System;
     using System.Collections.Generic;
     using Newtonsoft.Json;
     using WeatherForecastApp.Core.Models;
@@ -15,7 +14,10 @@ namespace WeatherForecastApp.Data.Repositories
     /// </summary>
     public class CityRepository : ICityRepository
     {
-        private const string DatabasePath = "../WeatherForecastApp.Data/Databases/CityDataBase.json";
+        /// <summary>
+        /// Defines the path to the database. It should be a private const but for the purpose of tests, it must a public string.
+        /// </summary>
+        public string DatabasePath = "../WeatherForecastApp.Data/Databases/CityDataBase.json";
 
         /// <inheritdoc/>
         public IEnumerable<City> GetAllCities()
@@ -25,21 +27,22 @@ namespace WeatherForecastApp.Data.Repositories
 
         private IEnumerable<City> FetchDataBase()
         {
-            var rawData = File.ReadAllText(DatabasePath);
+            var rawData = File.ReadAllText(this.DatabasePath);
 
             var cities = JsonConvert.DeserializeObject<IEnumerable<City>>(rawData);
 
-            // foreach (var city in cities)
-            // {
-            //    if (city.Latitude < 0 || city.Latitude > 90)
-            //    {
-            //        throw new Exception("Latitude or longitude out of range");
-            //    }
-            //    else if (city.Longitude < -180 || city.Longitude > 180)
-            //    {
-            //        throw new Exception("Latitude or longitude out of range");
-            //    }
-            // }
+            foreach (var city in cities)
+            {
+                if (city.Latitude < 0 || city.Latitude > 90)
+                {
+                    throw new Exception("Latitude out of range.");
+                }
+                else if (city.Longitude < -180 || city.Longitude > 180)
+                {
+                    throw new Exception("Longitude out of range.");
+                }
+            }
+
             return cities;
         }
     }
