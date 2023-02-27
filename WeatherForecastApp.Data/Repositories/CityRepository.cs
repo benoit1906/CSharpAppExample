@@ -29,18 +29,17 @@ namespace WeatherForecastApp.Data.Repositories
 
             var cities = JsonConvert.DeserializeObject<IEnumerable<City>>(rawData);
 
-            foreach (var city in cities)
-            {
-                if (city.Latitude < 0 || city.Latitude > 90)
-                {
-                    throw new Exception("Latitude or longitude out of range");
-                }
-                else if (city.Longitude < -180 || city.Longitude > 180)
-                {
-                    throw new Exception("Latitude or longitude out of range");
-                }
-            }
-
+            // foreach (var city in cities)
+            // {
+            //    if (city.Latitude < 0 || city.Latitude > 90)
+            //    {
+            //        throw new Exception("Latitude or longitude out of range");
+            //    }
+            //    else if (city.Longitude < -180 || city.Longitude > 180)
+            //    {
+            //        throw new Exception("Latitude or longitude out of range");
+            //    }
+            // }
             return cities;
         }
     }

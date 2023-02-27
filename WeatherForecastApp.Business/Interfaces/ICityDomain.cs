@@ -15,7 +15,7 @@ namespace WeatherForecastApp.Business.Interfaces
         /// <summary>
         /// Gets all the cities.
         /// </summary>
-        /// <returns>A list of cities</returns>
+        /// <returns>A list of cities.</returns>
         IEnumerable<City> GetAllCities();
     }
 }
