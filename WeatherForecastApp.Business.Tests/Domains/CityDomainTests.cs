@@ -52,7 +52,7 @@ namespace WeatherForecastApp.Business.Tests.Domains
                     new City()
                     {
                         Id = 9,
-                        Name = "Boussu",
+                        Name = "Toronto",
                         Latitude = latitude,
                         Longitude = longitude,
                     },
