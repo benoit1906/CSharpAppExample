@@ -7,7 +7,7 @@ namespace WeatherForecastApp.Site.Controllers
     using AutoMapper;
     using Microsoft.AspNetCore.Mvc;
     using WeatherForecastApp.Business.Interfaces;
-    using WeatherForecastApp.Core.Models;
+    using WeatherForecastApp.Site.ViewModels;
 
     /// <summary>
     /// Contains the definition of an object of type <see cref="CityController"/>.
@@ -31,11 +31,40 @@ namespace WeatherForecastApp.Site.Controllers
         }
 
         /// <summary>
+        /// Adds cities to the city domain.
+        /// </summary>
+        /// <param name="cities">A list of cities.</param>
+        /// <returns>An action result.</returns>
+        [HttpPost("AddCities")]
+        public ActionResult AddCities(IEnumerable<City> cities)
+        {
+            try
+            {
+                var coreCities = this.mapper.Map<IEnumerable<Core.Models.City>>(cities);
+                this.cityDomain.AddCities(coreCities);
+                return this.Ok();
+            }
+            catch (Exception err)
+            {
+                return this.BadRequest(err.Message);
+            }
+        }
+
+        /// <summary>
         /// Gets all the weather forecasts.
         /// </summary>
         /// <returns>A list of weather forecasts.</returns>
         [HttpGet("GetAllCities")]
-        public IEnumerable<City> GetAllWeatherForecast()
-            => this.mapper.Map<IEnumerable<City>>(this.cityDomain.GetAllCities());
+        public IActionResult GetAllWeatherForecast()
+        {
+            try
+            {
+                return this.Ok(this.mapper.Map<IEnumerable<City>>(this.cityDomain.GetAllCities()));
+            }
+            catch (Exception ex)
+            {
+                return this.BadRequest(ex.Message);
+            }
+        }
     }
 }

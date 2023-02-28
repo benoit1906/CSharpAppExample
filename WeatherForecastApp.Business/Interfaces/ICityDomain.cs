@@ -13,6 +13,12 @@ namespace WeatherForecastApp.Business.Interfaces
     public interface ICityDomain
     {
         /// <summary>
+        /// Adds cities to the repository.
+        /// </summary>
+        /// <param name="cities">A list of cities.</param>
+        void AddCities(IEnumerable<City> cities);
+
+        /// <summary>
         /// Gets all the cities.
         /// </summary>
         /// <returns>A list of cities.</returns>
