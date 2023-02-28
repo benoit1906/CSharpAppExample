@@ -60,9 +60,10 @@ namespace WeatherForecastApp.Data.Repositories
             return cities;
         }
 
-        private IEnumerable<City> SetIdentifier(IEnumerable<City> existingData, IEnumerable<City> toAddCities)
+        /// <inheritdoc/>
+        public IEnumerable<City> SetIdentifier(IEnumerable<City> existingCities, IEnumerable<City> toAddCities)
         {
-            var maxIdentifier = existingData.Max(c => c.Id);
+            var maxIdentifier = existingCities.Max(c => c.Id);
             foreach (var city in toAddCities)
             {
                 city.Id = ++maxIdentifier;
