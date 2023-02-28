@@ -26,6 +26,25 @@ namespace WeatherForecastApp.Business.Domains
         }
 
         /// <inheritdoc/>
+        public void AddCities(IEnumerable<City> cities)
+        {
+            foreach (var city in cities)
+            {
+                if (city.Latitude <= 0 || city.Latitude >= 90)
+                {
+                    throw new Exception("Latitude not valid");
+                }
+
+                if (city.Longitude <= -180 || city.Longitude >= 180)
+                {
+                    throw new Exception("Longitude not valid");
+                }
+            }
+
+            this.cityRepository.AddCities(cities);
+        }
+
+        /// <inheritdoc/>
         public IEnumerable<City> GetAllCities()
             => this.cityRepository.GetAllCities();
     }

@@ -20,6 +20,20 @@ namespace WeatherForecastApp.Data.Repositories
         public string DatabasePath = "../WeatherForecastApp.Data/Databases/CityDataBase.json";
 
         /// <inheritdoc/>
+        public void AddCities(IEnumerable<City> cities)
+        {
+            var existingData = this.FetchDataBase().ToList();
+
+            cities = this.SetIdentifier(existingData, cities);
+
+            existingData.AddRange(cities);
+            var toJson = existingData;
+
+            var jsonData = JsonConvert.SerializeObject(toJson, Formatting.Indented);
+            File.WriteAllText(this.DatabasePath, jsonData);
+        }
+
+        /// <inheritdoc/>
         public IEnumerable<City> GetAllCities()
         {
             return this.FetchDataBase();
@@ -44,6 +58,18 @@ namespace WeatherForecastApp.Data.Repositories
             }
 
             return cities;
+        }
+
+        /// <inheritdoc/>
+        public IEnumerable<City> SetIdentifier(IEnumerable<City> existingCities, IEnumerable<City> toAddCities)
+        {
+            var maxIdentifier = existingCities.Max(c => c.Id);
+            foreach (var city in toAddCities)
+            {
+                city.Id = ++maxIdentifier;
+            }
+
+            return toAddCities;
         }
     }
 }

@@ -106,6 +106,50 @@ namespace WeatherForecastApp.Data.Tests.Repositories
             Assert.Equal("Longitude out of range.", exception.Message);
         }
 
+        /// <summary>
+        /// Tests that the identifier is superior by one to the maximum existing identifier in the database.
+        /// </summary>
+        [Fact]
+        [Trait("Cities", "Identifier")]
+        public void ShouldIncrementIdentifier()
+        {
+            // Arrange
+            var existingCities = new List<City>
+            {
+                new City()
+                {
+                    Id = 2,
+                    Name = "New York",
+                    Latitude = 15,
+                    Longitude = 16,
+                },
+                new City()
+                {
+                    Id = 4,
+                    Name = "Los Angeles",
+                    Latitude = 25,
+                    Longitude = 56,
+                },
+            };
+            var toAddCities = new List<City>
+            {
+                new City()
+                {
+                    Id = 0,
+                    Name = "San Francisco",
+                    Latitude = 75,
+                    Longitude = 23,
+                },
+            };
+            var cityRepository = new CityRepository();
+
+            // Act
+            var result = cityRepository.SetIdentifier(existingCities, toAddCities);
+
+            // Assert
+            Assert.Equal(5, result.First().Id);
+        }
+
         /// <inheritdoc/>
         public void Dispose()
         {
