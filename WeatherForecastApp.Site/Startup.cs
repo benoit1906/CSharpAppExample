@@ -6,6 +6,7 @@ namespace WeatherForecastApp.Site
 {
     using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.OpenApi.Models;
+    using Technocite.Irm.Weather.Business.Domains;
     using WeatherForecastApp.Business.Domains;
     using WeatherForecastApp.Business.Interfaces;
     using WeatherForecastApp.Data.Interfaces;
@@ -72,15 +73,18 @@ namespace WeatherForecastApp.Site
                 cfg.CreateMap<Core.Models.WeatherForecast, ViewModels.WeatherForecast>();
                 cfg.CreateMap<ViewModels.WeatherForecastSearchParams, Core.Models.WeatherForecastSearchParams>();
                 cfg.CreateMap<Core.Models.City, ViewModels.City>();
+                cfg.CreateMap<ViewModels.Login, Core.Models.Login>();
             });
 
             // Domains
             services.AddScoped<IWeatherForecastDomain, WeatherForecastDomain>();
             services.AddScoped<ICityDomain, CityDomain>();
+            services.AddTransient<IUserDomain, UserDomain>();
 
             // Repositories
             services.AddScoped<IWeatherForecastRepository, WeatherForecastRepository>();
             services.AddScoped<ICityRepository, CityRepository>();
+            services.AddTransient<IUserRepository, UserRepository>();
         }
 
         /// <summary>

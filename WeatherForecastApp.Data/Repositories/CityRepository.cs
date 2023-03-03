@@ -39,6 +39,18 @@ namespace WeatherForecastApp.Data.Repositories
             return this.FetchDataBase();
         }
 
+        /// <inheritdoc/>
+        public IEnumerable<City> SetIdentifier(IEnumerable<City> existingCities, IEnumerable<City> toAddCities)
+        {
+            var maxIdentifier = existingCities.Max(c => c.Id);
+            foreach (var city in toAddCities)
+            {
+                city.Id = ++maxIdentifier;
+            }
+
+            return toAddCities;
+        }
+
         private IEnumerable<City> FetchDataBase()
         {
             var rawData = File.ReadAllText(this.DatabasePath);
@@ -58,18 +70,6 @@ namespace WeatherForecastApp.Data.Repositories
             }
 
             return cities;
-        }
-
-        /// <inheritdoc/>
-        public IEnumerable<City> SetIdentifier(IEnumerable<City> existingCities, IEnumerable<City> toAddCities)
-        {
-            var maxIdentifier = existingCities.Max(c => c.Id);
-            foreach (var city in toAddCities)
-            {
-                city.Id = ++maxIdentifier;
-            }
-
-            return toAddCities;
         }
     }
 }
