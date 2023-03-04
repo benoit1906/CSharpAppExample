@@ -5,12 +5,13 @@
 namespace WeatherApp.Site.Controllers
 {
     using System.Security.Claims;
+    using System.Security.Cryptography;
     using AutoMapper;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using WeatherForecastApp.Business.Interfaces;
     using WeatherForecastApp.Core;
-    using WeatherForecastApp.Core.Models;
+    using WeatherForecastApp.Site.ViewModels;
 
     /// <summary>
     /// Contains the definition of a class of type <see cref="UserController"/>.
@@ -21,6 +22,7 @@ namespace WeatherApp.Site.Controllers
     {
         private readonly IMapper mapper;
         private readonly IUserDomain userDomain;
+        private static LoginRefreshToken loggedInUserRefreshToken = new LoginRefreshToken();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="UserController"/> class.
@@ -40,11 +42,14 @@ namespace WeatherApp.Site.Controllers
         /// <returns>The Json Web Token.</returns>
         [HttpPost("Login")]
         [AllowAnonymous]
-        public IActionResult Login(Login userlogin)
+        public IActionResult Login(WeatherForecastApp.Site.ViewModels.Login userlogin)
         {
             try
             {
                 var tokenString = this.userDomain.Login(this.mapper.Map<WeatherForecastApp.Core.Models.Login>(userlogin));
+                loggedInUserRefreshToken.Username = userlogin.Username;
+                loggedInUserRefreshToken.Password = userlogin.Password;
+                this.GenerateAndSetRefreshToken();
                 return this.Ok(tokenString);
             }
             catch (Exception e)
@@ -69,6 +74,57 @@ namespace WeatherApp.Site.Controllers
                 Surname = this.User.FindFirst(ClaimTypes.Surname)?.Value,
                 Role = this.User.FindFirst(ClaimTypes.Role)?.Value,
             });
+        }
+
+        /// <summary>
+        /// Refreshes the token.
+        /// </summary>
+        /// <returns>The token refreshed.</returns>
+        [HttpPost("RefreshToken")]
+        [AllowAnonymous]
+        public IActionResult RefreshToken()
+        {
+            var refreshTokenCookie = this.Request.Cookies[Constants.RefreshTokenCookieName];
+
+            if (!loggedInUserRefreshToken.RefreshToken.Token.Equals(refreshTokenCookie))
+            {
+                return this.Unauthorized("Invalid refresh token. Please enter your username and password.");
+            }
+            else if (loggedInUserRefreshToken.RefreshToken.ExpirationDate < DateTime.UtcNow)
+            {
+                return this.Unauthorized("Token expired. Please enter your username and password.");
+            }
+
+            string token = this.userDomain.Login(this.mapper.Map<WeatherForecastApp.Core.Models.Login>(
+                new WeatherForecastApp.Core.Models.Login
+                {
+                    Username = loggedInUserRefreshToken.Username,
+                    Password = loggedInUserRefreshToken.Password,
+                }));
+            this.GenerateAndSetRefreshToken();
+
+            return this.Ok(token);
+        }
+
+        private void GenerateAndSetRefreshToken()
+        {
+            var token = Convert.ToBase64String(RandomNumberGenerator.GetBytes(64));
+            var tokenCreationDate = DateTime.Now;
+            var tokenExpirationDate = tokenCreationDate.AddMinutes(1);
+
+            var cookieOptions = new CookieOptions
+            {
+                HttpOnly = true,
+                Expires = tokenExpirationDate,
+            };
+            this.Response.Cookies.Append(Constants.RefreshTokenCookieName, token, cookieOptions);
+
+            loggedInUserRefreshToken.RefreshToken = new RefreshToken
+            {
+                Token = token,
+                CreationDate = tokenCreationDate,
+                ExpirationDate = tokenExpirationDate,
+            };
         }
     }
 }

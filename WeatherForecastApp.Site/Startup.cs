@@ -4,10 +4,10 @@
 
 namespace WeatherForecastApp.Site
 {
+    using System.Text;
     using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.IdentityModel.Tokens;
     using Microsoft.OpenApi.Models;
-    using System.Text;
     using Technocite.Irm.Weather.Business.Domains;
     using WeatherForecastApp.Business.Domains;
     using WeatherForecastApp.Business.Interfaces;
@@ -83,6 +83,7 @@ namespace WeatherForecastApp.Site
                             ValidIssuer = this.Configuration["Jwt:Issuer"],
                             ValidAudience = this.Configuration["Jwt:Audience"],
                             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(this.Configuration["Jwt:Key"])),
+                            ClockSkew = TimeSpan.Zero,
                         };
                     });
 

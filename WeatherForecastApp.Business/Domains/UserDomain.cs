@@ -49,7 +49,7 @@ namespace Technocite.Irm.Weather.Business.Domains
                 issuer: this.configuration["Jwt:Issuer"],
                 audience: this.configuration["Jwt:Audience"],
                 claims: claims,
-                expires: DateTime.UtcNow.AddDays(60),
+                expires: DateTime.UtcNow.AddSeconds(15),
                 notBefore: DateTime.UtcNow,
                 signingCredentials: new SigningCredentials(
                     new SymmetricSecurityKey(Encoding.UTF8.GetBytes(this.configuration["Jwt:Key"])),

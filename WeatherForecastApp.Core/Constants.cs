@@ -10,6 +10,11 @@ namespace WeatherForecastApp.Core
     public static class Constants
     {
         /// <summary>
+        /// The refresh token cookie name.
+        /// </summary>
+        public const string RefreshTokenCookieName = "refreshToken";
+
+        /// <summary>
         /// Contains the definition of a class of type <see cref="MemberRole"/>.
         /// </summary>
         public static class MemberRole
