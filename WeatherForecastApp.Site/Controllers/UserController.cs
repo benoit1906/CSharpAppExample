@@ -9,6 +9,7 @@ namespace WeatherApp.Site.Controllers
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using WeatherForecastApp.Business.Interfaces;
+    using WeatherForecastApp.Core;
     using WeatherForecastApp.Core.Models;
 
     /// <summary>
@@ -56,10 +57,18 @@ namespace WeatherApp.Site.Controllers
         /// Gets the user.
         /// </summary>
         /// <returns>The user.</returns>
-        [HttpPost("GetUser")]
-        public IActionResult GetUser()
+        [HttpGet("GetCurrentUser")]
+        [Authorize(Roles = $"{Constants.MemberRole.Admin}, {Constants.MemberRole.Standard}")]
+        public IActionResult GetCurrentUser()
         {
-            return this.Ok(this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+            return this.Ok(new
+            {
+                Id = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value,
+                Email = this.User.FindFirst(ClaimTypes.Email)?.Value,
+                GivenName = this.User.FindFirst(ClaimTypes.GivenName)?.Value,
+                Surname = this.User.FindFirst(ClaimTypes.Surname)?.Value,
+                Role = this.User.FindFirst(ClaimTypes.Role)?.Value,
+            });
         }
     }
 }

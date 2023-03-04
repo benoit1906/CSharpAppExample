@@ -5,8 +5,10 @@
 namespace WeatherForecastApp.Site.Controllers
 {
     using AutoMapper;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using WeatherForecastApp.Business.Interfaces;
+    using WeatherForecastApp.Core;
     using WeatherForecastApp.Site.ViewModels;
 
     /// <summary>
@@ -35,6 +37,7 @@ namespace WeatherForecastApp.Site.Controllers
         /// </summary>
         /// <returns>A list of weather forecasts.</returns>
         [HttpGet("GetWeatherForecast")]
+        [Authorize(Roles = $"{Constants.MemberRole.Admin}, {Constants.MemberRole.Standard}")]
         public IEnumerable<WeatherForecast> GetAllWeatherForecast()
             => this.mapper.Map<IEnumerable<WeatherForecast>>(this.weatherForecastDomain.GetAllWeatherForecast());
 
@@ -44,6 +47,7 @@ namespace WeatherForecastApp.Site.Controllers
         /// <param name="searchParams">The search params.</param>
         /// <returns>A list of weather forecasts.</returns>
         [HttpPost("GetWeatherForecastBySearchParams")]
+        [Authorize(Roles = $"{Constants.MemberRole.Admin}, {Constants.MemberRole.Standard}")]
         public IEnumerable<WeatherForecast> GetWeatherForecastBySearchParams(WeatherForecastSearchParams searchParams)
             => this.mapper.Map<IEnumerable<WeatherForecast>>(
                 this.weatherForecastDomain.GetWeatherForecastsBySearchParams(

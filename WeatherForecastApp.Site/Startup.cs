@@ -5,7 +5,9 @@
 namespace WeatherForecastApp.Site
 {
     using Microsoft.AspNetCore.Authentication.JwtBearer;
+    using Microsoft.IdentityModel.Tokens;
     using Microsoft.OpenApi.Models;
+    using System.Text;
     using Technocite.Irm.Weather.Business.Domains;
     using WeatherForecastApp.Business.Domains;
     using WeatherForecastApp.Business.Interfaces;
@@ -68,6 +70,22 @@ namespace WeatherForecastApp.Site
                         },
                     });
             });
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                    .AddJwtBearer(options =>
+                    {
+                        options.TokenValidationParameters = new TokenValidationParameters
+                        {
+                            ValidateActor = true,
+                            ValidateIssuer = true,
+                            ValidateAudience = true,
+                            ValidateLifetime = true,
+                            ValidateIssuerSigningKey = true,
+                            ValidIssuer = this.Configuration["Jwt:Issuer"],
+                            ValidAudience = this.Configuration["Jwt:Audience"],
+                            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(this.Configuration["Jwt:Key"])),
+                        };
+                    });
+
             services.AddAutoMapper(cfg =>
             {
                 cfg.CreateMap<Core.Models.WeatherForecast, ViewModels.WeatherForecast>();
@@ -105,6 +123,7 @@ namespace WeatherForecastApp.Site
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

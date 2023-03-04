@@ -5,8 +5,10 @@
 namespace WeatherForecastApp.Site.Controllers
 {
     using AutoMapper;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using WeatherForecastApp.Business.Interfaces;
+    using WeatherForecastApp.Core;
     using WeatherForecastApp.Site.ViewModels;
 
     /// <summary>
@@ -36,6 +38,7 @@ namespace WeatherForecastApp.Site.Controllers
         /// <param name="cities">A list of cities.</param>
         /// <returns>An action result.</returns>
         [HttpPost("AddCities")]
+        [Authorize(Roles = Constants.MemberRole.Admin)]
         public ActionResult AddCities(IEnumerable<City> cities)
         {
             try
@@ -55,7 +58,8 @@ namespace WeatherForecastApp.Site.Controllers
         /// </summary>
         /// <returns>A list of weather forecasts.</returns>
         [HttpGet("GetAllCities")]
-        public IActionResult GetAllWeatherForecast()
+        [Authorize(Roles = $"{Constants.MemberRole.Admin}, {Constants.MemberRole.Standard}")]
+        public IActionResult GetAllCities()
         {
             try
             {
