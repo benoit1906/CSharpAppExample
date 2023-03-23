@@ -4,6 +4,11 @@
 
 namespace WeatherForecastApp.Site
 {
+    using System.Text;
+    using Microsoft.AspNetCore.Authentication.JwtBearer;
+    using Microsoft.IdentityModel.Tokens;
+    using Microsoft.OpenApi.Models;
+    using Technocite.Irm.Weather.Business.Domains;
     using WeatherForecastApp.Business.Domains;
     using WeatherForecastApp.Business.Interfaces;
     using WeatherForecastApp.Data.Interfaces;
@@ -39,21 +44,66 @@ namespace WeatherForecastApp.Site
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             services.AddEndpointsApiExplorer();
-            services.AddSwaggerGen();
+            services.AddSwaggerGen(options =>
+            {
+                options.AddSecurityDefinition(JwtBearerDefaults.AuthenticationScheme, new OpenApiSecurityScheme
+                {
+                    Scheme = JwtBearerDefaults.AuthenticationScheme,
+                    BearerFormat = "JWT",
+                    In = ParameterLocation.Header,
+                    Name = "Authorization",
+                    Description = "Bearer Authentication with JWT Token",
+                    Type = SecuritySchemeType.Http,
+                });
+                options.AddSecurityRequirement(new OpenApiSecurityRequirement
+                    {
+                        {
+                            new OpenApiSecurityScheme
+                            {
+                                Reference = new OpenApiReference
+                                {
+                                    Id = JwtBearerDefaults.AuthenticationScheme,
+                                    Type = ReferenceType.SecurityScheme,
+                                },
+                            },
+                            new List<string>()
+                        },
+                    });
+            });
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                    .AddJwtBearer(options =>
+                    {
+                        options.TokenValidationParameters = new TokenValidationParameters
+                        {
+                            ValidateActor = true,
+                            ValidateIssuer = true,
+                            ValidateAudience = true,
+                            ValidateLifetime = true,
+                            ValidateIssuerSigningKey = true,
+                            ValidIssuer = this.Configuration["Jwt:Issuer"],
+                            ValidAudience = this.Configuration["Jwt:Audience"],
+                            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(this.Configuration["Jwt:Key"])),
+                            ClockSkew = TimeSpan.Zero,
+                        };
+                    });
+
             services.AddAutoMapper(cfg =>
             {
                 cfg.CreateMap<Core.Models.WeatherForecast, ViewModels.WeatherForecast>();
                 cfg.CreateMap<ViewModels.WeatherForecastSearchParams, Core.Models.WeatherForecastSearchParams>();
                 cfg.CreateMap<Core.Models.City, ViewModels.City>();
+                cfg.CreateMap<ViewModels.Login, Core.Models.Login>();
             });
 
             // Domains
             services.AddScoped<IWeatherForecastDomain, WeatherForecastDomain>();
             services.AddScoped<ICityDomain, CityDomain>();
+            services.AddTransient<IUserDomain, UserDomain>();
 
             // Repositories
             services.AddScoped<IWeatherForecastRepository, WeatherForecastRepository>();
             services.AddScoped<ICityRepository, CityRepository>();
+            services.AddTransient<IUserRepository, UserRepository>();
         }
 
         /// <summary>
@@ -74,6 +124,7 @@ namespace WeatherForecastApp.Site
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

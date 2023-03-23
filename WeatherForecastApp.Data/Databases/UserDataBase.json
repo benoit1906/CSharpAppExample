@@ -1,0 +1,20 @@
+[
+  {
+    "Id": 1,
+    "Username": "admin",
+    "EmailAddress": "luke.admin@email.com",
+    "Password": "string",
+    "GivenName": "Luke",
+    "Surname": "Rogers",
+    "Role": "Administrator"
+  },
+  {
+    "Id": 2,
+    "Username": "standard",
+    "EmailAddress": "lydia.standard@email.com",
+    "Password": "string",
+    "GivenName": "Lydia",
+    "Surname": "Burton",
+    "Role": "Standard"
+  }
+]
