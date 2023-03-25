@@ -5,7 +5,11 @@ This repository presents an classical application in C#/.NET. This example show 
 - unit testing,
 - authentification/authorization using JSON Web Tokens.
 
-This application has been created to present the three subjects to job seekers during their 8-month formation to become back-end ASP.NET software engineers in the span of three courses. The three different modules are separated into three branches, with commits indicating each step to create this app. The app created to present such modules begins as an application to manage weather forecasts and it evolves into an application to manage events, with users with different roles such as admin and users. It uses .JSON databases as the SQL database was not part of the subject of these three courses
+This application has been created to present the three subjects to job seekers during their 8-month formation to become back-end ASP.NET software engineers in the span of three courses. The three different modules are separated into three branches, with commits indicating each step to create this app. The app created to present such modules begins as an application to manage weather forecasts and it evolves into an application to manage events, with users with different roles such as admin and users. It uses .JSON databases as the SQL database was not part of the subject of these three courses.
+
+<head>
+  <img src="branches.drawio.png" width="400">
+</head>
 
 ## Complex application using Domain Driven Design (DDD)
 The complex app follows the DDD - Domain Driven Design - pattern. This means that the app is centered around domains which implements the business part of the application where other parts of the app exists for more technical and implementation reasons. As such the app is divided in 4 projects :
